@@ -9,3 +9,34 @@ Saving varies by the type of work you are doing:
 -- *Git repositories that you clone into the Sandbox are NOT automatically saved.* In this case, you are responsible for committing and pushing your work to GitHub. 
 
 To learn more about the Sandbox, please visit http://help.learn.co/technical-support/learn-ide-in-browser/ide-in-browser-sandbox
+
+class Person
+  attr_accessor :partner, :name
+ 
+  def initialize(name)
+    @name = name
+  end
+ 
+  def get_married(person)
+    self.partner = person
+    if person.class != Person
+      begin
+        raise PartnerError
+      rescue PartnerError => error
+          puts error.message
+      end
+    else
+      person.partner = self
+    end
+  end
+ 
+  class PartnerError < StandardError
+    def message 
+      "you must give the get_married method an argument of an instance of the person class!"
+    end
+  end
+end
+ 
+beyonce = Person.new("Beyonce")
+beyonce.get_married("Jay-Z")
+puts beyonce.name
